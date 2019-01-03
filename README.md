@@ -5,5 +5,3 @@ Since I stopped updating it I decided to release it on github.
 
 I know a lot of the code in this project is ~~horrible~~ *not that good* so please forgive my smelly code. 
 *everyone had to start somewhere*
-
-I will probably not be updating this project anymore
