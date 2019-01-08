@@ -2,8 +2,6 @@ package net.ddns.jonasvansaet.DA;
 
 
 import net.ddns.jonasvansaet.Objects.ByeSettings;
-import net.ddns.jonasvansaet.Objects.Serversettings;
-import com.mysql.cj.jdbc.Driver;
 import net.ddns.jonasvansaet.utils.Config;
 
 import java.sql.*;

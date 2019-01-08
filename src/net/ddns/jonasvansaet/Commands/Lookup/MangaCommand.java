@@ -9,6 +9,8 @@ import net.dv8tion.jda.core.entities.MessageEmbed;
 import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
 //import org.jsoup.Jsoup;
 import org.apache.commons.lang3.StringEscapeUtils;
+import org.json.JSONArray;
+import org.json.JSONObject;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -33,40 +35,29 @@ public class MangaCommand implements Command {
     public void action(MessageReceivedEvent event) {
         ParameterParser parameterParser = new ParameterParser();
         String anime = parameterParser.unparsedParameter(event).replace(" ", "+");
-        String xml = ReadUrl.readUrlWithAuth("https://myanimelist.net/api/manga/search.xml?q=" + anime, Config.malUser, Config.malPassword);
+        String json = ReadUrl.readUrl("https://api.jikan.moe/v3/search/manga?q=" + anime.replace(" ", "%20") + "$page=1");
         EmbedBuilder embedBuilder = new EmbedBuilder();
 
-        if (!xml.equals("")){
-            try {
-                DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
-                DocumentBuilder documentBuilder = documentBuilderFactory.newDocumentBuilder();
-                Document doc = documentBuilder.parse(new InputSource(new ByteArrayInputStream(xml.getBytes("utf-8"))));
+        JSONObject object = new JSONObject(json);
+        JSONArray list = object.getJSONArray("results");
 
-                NodeList nodeList = doc.getElementsByTagName("entry");
-                Node entry = nodeList.item(0);
-                Element element = (Element) entry;
+        if(list.length() > 0){
+            JSONObject first = list.getJSONObject(0);
 
-                String name = element.getElementsByTagName("title").item(0).getTextContent();
-                String englishName = element.getElementsByTagName("english").item(0).getTextContent();
-                String image = element.getElementsByTagName("image").item(0).getTextContent();
-                String synopsis = element.getElementsByTagName("synopsis").item(0).getTextContent();
-                synopsis = StringEscapeUtils.unescapeXml(synopsis);
-                synopsis = synopsis.replace("<br />", "");
-                if (synopsis.length() >= 1200){
-                    synopsis = synopsis.substring(0, 1200) + " ...";
-                }
-                String id = element.getElementsByTagName("id").item(0).getTextContent();
-
-                embedBuilder.addField(name, englishName, true);
-                embedBuilder.addField("Description", synopsis, true);
-                embedBuilder.addField("Link", "https://myanimelist.net/manga/" + id, true);
-                embedBuilder.setThumbnail(image);
-                embedBuilder.setColor(Color.GREEN);
-
-            } catch (Exception e) {
-                System.out.println(e);
+            String name = first.getString("title");
+            String image = first.getString("image_url");
+            String synopsis = first.getString("synopsis");
+            if (synopsis.length() >= 1200){
+                synopsis = synopsis.substring(0, 1200) + " ...";
             }
-        } else {
+            String url = first.getString("url");
+
+            embedBuilder.setTitle(name);
+            embedBuilder.addField("Description", synopsis, false);
+            embedBuilder.addField("Link", url, false);
+            embedBuilder.setThumbnail(image);
+            embedBuilder.setColor(Color.GREEN);
+        }else {
             embedBuilder.setDescription("Manga not found");
             embedBuilder.setColor(Color.RED);
         }
