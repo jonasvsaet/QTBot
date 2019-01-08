@@ -8,7 +8,7 @@ import net.dv8tion.jda.core.entities.MessageEmbed;
 import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
 
 
-
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.awt.*;
@@ -31,25 +31,26 @@ public class UrbanDictionaryCommand implements Command{
 
         String json = ReadUrl.readUrl("http://api.urbandictionary.com/v0/define?term=" + parameter.replace(" ", "%20"));
         JSONObject obj = new JSONObject(json);
-        String resultType = obj.getString("result_type");
         EmbedBuilder embedBuilder = new EmbedBuilder();
 
-        if(!obj.getString("result_type").equals("no_results")){
-            JSONObject first = obj.getJSONArray("list").getJSONObject(0);
-            String defenition = first.getString("definition");
+        JSONArray list = obj.getJSONArray("list");
+
+        if(list.length() > 0){
+            JSONObject first = list.getJSONObject(0);
+            String definition = first.getString("definition");
             String name = first.getString("word");
             String example = first.getString("example");
             String permalink = first.getString("permalink");
 
             embedBuilder.setThumbnail("https://lh5.googleusercontent.com/-rY97dP0iEo0/AAAAAAAAAAI/AAAAAAAAAGA/xm1HYqJXdMw/s0-c-k-no-ns/photo.jpg");
             embedBuilder.setColor(Color.green);
-            if (defenition.length() > 1000){
-                defenition = defenition.substring(0, 1000) + " ...";
+            if (definition.length() > 1000){
+                definition = definition.substring(0, 1000) + " ...";
             }
             if (example.length() > 1000){
                 example = example.substring(0, 1000) + " ...";
             }
-            embedBuilder.addField(name, defenition, false);
+            embedBuilder.addField(name, definition, false);
             embedBuilder.addField("example", example, false);
             embedBuilder.addField("permalink", permalink, false);
 

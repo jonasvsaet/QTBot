@@ -30,7 +30,7 @@ public class Main {
         try
         {
             jda = new JDABuilder(AccountType.BOT)
-                    .setToken(Config.botToken)
+                    .setToken(Config.devBotToken)
                     .addEventListener(new CommandListener())
                     .addEventListener(new JoinListener())
                     .setGame(Game.playing("\"@mention help\" for help"))

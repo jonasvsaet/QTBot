@@ -1,22 +1,12 @@
 package net.ddns.jonasvansaet.Commands.Admin;
 
 import net.ddns.jonasvansaet.Command;
-import net.ddns.jonasvansaet.Main;
 import net.ddns.jonasvansaet.utils.ParameterParser;
-import net.dv8tion.jda.core.JDA;
 import net.dv8tion.jda.core.Permission;
 import net.dv8tion.jda.core.entities.*;
-import net.dv8tion.jda.core.entities.impl.RoleImpl;
 import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
-import net.dv8tion.jda.core.events.role.RoleCreateEvent;
-import net.dv8tion.jda.core.managers.GuildController;
-import net.dv8tion.jda.core.managers.RoleManager;
-import net.dv8tion.jda.core.managers.RoleManagerUpdatable;
-import net.dv8tion.jda.core.requests.Route;
-import org.json.JSONObject;
 
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;

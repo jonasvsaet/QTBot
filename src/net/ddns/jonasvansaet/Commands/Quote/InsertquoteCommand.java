@@ -20,7 +20,7 @@ public class InsertquoteCommand implements Command {
         DAQuote daQuote = new DAQuote();
         Quote quote = new Quote();
 
-        String[] rawSplit = event.getMessage().getRawContent().split(" ");
+        String[] rawSplit = event.getMessage().getContentRaw().split(" ");
         String lowercase = rawSplit[0].toLowerCase();
 
         if (event.getMessage().getMentionedUsers().size() > 0){

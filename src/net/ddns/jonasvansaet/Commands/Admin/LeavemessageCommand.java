@@ -53,9 +53,9 @@ public class LeavemessageCommand implements Command {
                     break;
                 case "setmessage":
                     //set the message on the server
-                    String command = event.getMessage().getRawContent().toLowerCase();
+                    String command = event.getMessage().getContentRaw().toLowerCase();
                     int index = command.indexOf("setmessage ") + 11;
-                    String parameter = event.getMessage().getRawContent().substring(index);
+                    String parameter = event.getMessage().getContentRaw().substring(index);
                     daByeSettings.updateByeMessage(guild.getId(), parameter, event.getChannel().getId());
                     event.getChannel().sendMessage("Message set to \"" + parameter + "\"").queue();
                     break;
