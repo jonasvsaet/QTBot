@@ -1,12 +1,12 @@
 package net.ddns.jonasvansaet.Commands.Admin;
 
 import net.ddns.jonasvansaet.Command;
-import net.dv8tion.jda.core.EmbedBuilder;
-import net.dv8tion.jda.core.Permission;
-import net.dv8tion.jda.core.entities.Member;
-import net.dv8tion.jda.core.entities.MessageEmbed;
-import net.dv8tion.jda.core.entities.User;
-import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
+import net.dv8tion.jda.api.EmbedBuilder;
+import net.dv8tion.jda.api.Permission;
+import net.dv8tion.jda.api.entities.Member;
+import net.dv8tion.jda.api.entities.MessageEmbed;
+import net.dv8tion.jda.api.entities.User;
+import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 
 import java.awt.*;
 
@@ -30,7 +30,7 @@ public class KickCommand implements Command {
 
         if(member.hasPermission(Permission.KICK_MEMBERS)){
             for (User eachUser: event.getMessage().getMentionedUsers()){
-                event.getGuild().getController().kick(eachUser.getId()).queue();
+                event.getGuild().kick(eachUser.getId()).queue();
                 embedBuilder.setThumbnail("http://img06.deviantart.net/5d8d/i/2011/261/b/6/reimu_is_not_amused_by_yukirumo990-d4a7diz.png");
                 embedBuilder.setDescription("GETOUTTAHERE " + eachUser.getName());
             }

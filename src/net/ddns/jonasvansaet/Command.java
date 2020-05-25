@@ -1,6 +1,6 @@
 package net.ddns.jonasvansaet;
 
-import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
+import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 
 /**
  * Created by jonas on 12/14/2016.

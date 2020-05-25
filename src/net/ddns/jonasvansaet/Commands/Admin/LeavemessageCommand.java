@@ -7,11 +7,11 @@ import net.ddns.jonasvansaet.JoinListener;
 import net.ddns.jonasvansaet.utils.ByeServers;
 import net.ddns.jonasvansaet.utils.ParameterParser;
 import net.ddns.jonasvansaet.utils.WelcomeServers;
-import net.dv8tion.jda.core.Permission;
-import net.dv8tion.jda.core.entities.Guild;
-import net.dv8tion.jda.core.entities.Member;
-import net.dv8tion.jda.core.entities.User;
-import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
+import net.dv8tion.jda.api.Permission;
+import net.dv8tion.jda.api.entities.Guild;
+import net.dv8tion.jda.api.entities.Member;
+import net.dv8tion.jda.api.entities.User;
+import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 
 /**
  * Created by jonas on 7/02/2017.

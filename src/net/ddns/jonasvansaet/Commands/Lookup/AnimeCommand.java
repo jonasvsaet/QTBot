@@ -1,26 +1,14 @@
 package net.ddns.jonasvansaet.Commands.Lookup;
 
 import net.ddns.jonasvansaet.Command;
-import net.ddns.jonasvansaet.utils.Config;
 import net.ddns.jonasvansaet.utils.ParameterParser;
 import net.ddns.jonasvansaet.utils.ReadUrl;
-import net.dv8tion.jda.core.EmbedBuilder;
-import net.dv8tion.jda.core.entities.MessageEmbed;
-import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
-//import org.jsoup.Jsoup;
-import org.apache.commons.lang3.StringEscapeUtils;
-import org.json.JSONArray;
-import org.json.JSONObject;
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
-import org.w3c.dom.Node;
-import org.w3c.dom.NodeList;
-import org.xml.sax.InputSource;
-
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
+import net.dv8tion.jda.api.EmbedBuilder;
+import net.dv8tion.jda.api.entities.MessageEmbed;
+import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import java.awt.*;
-import java.io.ByteArrayInputStream;
+
+//import org.jsoup.Jsoup;
 
 /**
  * Created by jonas on 17/02/2017.
@@ -34,7 +22,7 @@ public class AnimeCommand implements Command {
 
     @Override
     public void action(MessageReceivedEvent event) {
-        ParameterParser parameterParser = new ParameterParser();
+        /*ParameterParser parameterParser = new ParameterParser();
         String anime = parameterParser.unparsedParameter(event).replace(" ", "+");
         String json = ReadUrl.readUrl("https://api.jikan.moe/v3/search/anime?q=" + anime.replace(" ", "%20") + "$page=1");
         EmbedBuilder embedBuilder = new EmbedBuilder();
@@ -64,7 +52,7 @@ public class AnimeCommand implements Command {
         }
 
         MessageEmbed messageEmbed = embedBuilder.build();
-        event.getChannel().sendMessage(messageEmbed).queue();
+        event.getChannel().sendMessage(messageEmbed).queue();*/
     }
 
     @Override

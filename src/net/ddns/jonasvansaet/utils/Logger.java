@@ -1,9 +1,9 @@
 package net.ddns.jonasvansaet.utils;
 
-import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
+import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 
-import java.io.*;
 import java.io.BufferedWriter;
+import java.io.FileWriter;
 import java.time.LocalDateTime;
 
 /**

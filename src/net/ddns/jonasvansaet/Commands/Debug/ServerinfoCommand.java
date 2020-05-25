@@ -1,10 +1,10 @@
 package net.ddns.jonasvansaet.Commands.Debug;
 
 import net.ddns.jonasvansaet.Command;
-import net.dv8tion.jda.core.EmbedBuilder;
-import net.dv8tion.jda.core.entities.Guild;
-import net.dv8tion.jda.core.entities.MessageEmbed;
-import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
+import net.dv8tion.jda.api.EmbedBuilder;
+import net.dv8tion.jda.api.entities.Guild;
+import net.dv8tion.jda.api.entities.MessageEmbed;
+import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 
 import java.awt.*;
 import java.time.format.DateTimeFormatter;
@@ -27,7 +27,7 @@ public class ServerinfoCommand implements Command {
         embedBuilder.setColor(Color.green);
         embedBuilder.addField("name", guild.getName(), true);
         embedBuilder.addField("id", guild.getId(), true);
-        embedBuilder.addField("Created at", guild.getCreationTime().format(formatter), true);
+        embedBuilder.addField("Created at", guild.getTimeCreated().format(formatter), true);
         embedBuilder.addField("owner", guild.getOwner().getEffectiveName(), true);
         embedBuilder.addField("number of members", Integer.toString(guild.getMembers().size()), true);
         embedBuilder.setThumbnail(guild.getIconUrl());

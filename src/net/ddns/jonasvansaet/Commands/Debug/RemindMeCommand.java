@@ -1,9 +1,15 @@
 package net.ddns.jonasvansaet.Commands.Debug;
 
 import net.ddns.jonasvansaet.Command;
+import net.ddns.jonasvansaet.DA.DAReminder;
+import net.ddns.jonasvansaet.Objects.Reminders;
 import net.ddns.jonasvansaet.utils.ParameterParser;
-import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
+import net.dv8tion.jda.api.entities.User;
+import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 
+import java.sql.Date;
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -65,11 +71,25 @@ public class RemindMeCommand implements Command {
 
         event.getChannel().sendMessage("Reminding " + event.getAuthor().getAsMention() + " in " + days + "d " + hours + "h " + minutes + "m " + seconds + "s: " + message).queue();
 
+        User user = event.getAuthor();
+
+
+        Reminders reminder = new Reminders();
+        reminder.setTime(Timestamp.valueOf(LocalDateTime.now().plusNanos(waitMillis)));
+        reminder.setReminder(message);
+        reminder.setUserId(event.getAuthor().getId());
+        reminder.setChannelId(event.getChannel().getId());
+
+        DAReminder daReminder = new DAReminder();
+        daReminder.insertReminder(reminder);
+
         new java.util.Timer().schedule(
                 new java.util.TimerTask() {
                     @Override
                     public void run() {
                         event.getChannel().sendMessage(event.getAuthor().getAsMention() + " " +  message).queue();
+                        DAReminder reminderAL = new DAReminder();
+                        reminderAL.removeReminder(reminder.getId());
                     }
                 },
                 waitMillis

@@ -3,14 +3,8 @@ package net.ddns.jonasvansaet;
 import net.ddns.jonasvansaet.utils.IgnoredPeople;
 import net.ddns.jonasvansaet.utils.Logger;
 import net.ddns.jonasvansaet.utils.WelcomeServers;
-import net.dv8tion.jda.core.entities.Member;
-import net.dv8tion.jda.core.entities.Role;
-import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
-import net.dv8tion.jda.core.hooks.ListenerAdapter;
-
-import java.util.List;
-import java.util.Timer;
-import java.util.TimerTask;
+import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
+import net.dv8tion.jda.api.hooks.ListenerAdapter;
 
 
 /**

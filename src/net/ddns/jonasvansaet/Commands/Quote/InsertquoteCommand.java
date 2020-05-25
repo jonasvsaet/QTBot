@@ -4,7 +4,7 @@ import net.ddns.jonasvansaet.Command;
 import net.ddns.jonasvansaet.DA.DAQuote;
 import net.ddns.jonasvansaet.Objects.Quote;
 import net.ddns.jonasvansaet.utils.ParameterParser;
-import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
+import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 
 /**
  * Created by jonas on 12/19/2016.

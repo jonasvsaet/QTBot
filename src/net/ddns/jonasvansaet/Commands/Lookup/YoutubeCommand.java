@@ -10,13 +10,14 @@ import com.google.api.services.youtube.model.SearchResult;
 import net.ddns.jonasvansaet.Command;
 import net.ddns.jonasvansaet.utils.Config;
 import net.ddns.jonasvansaet.utils.ParameterParser;
-import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
+import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 
 import java.io.IOException;
 import java.util.List;
 
 /**
  * Created by jonas on 12/20/2016.
+ * Note: this was written when I wasn't experienced yet and is really a mess
  */
 public class YoutubeCommand implements Command{
 

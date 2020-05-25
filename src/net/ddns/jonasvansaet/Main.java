@@ -7,15 +7,20 @@ import net.ddns.jonasvansaet.Commands.Games.RollCommand;
 import net.ddns.jonasvansaet.Commands.Lookup.*;
 import net.ddns.jonasvansaet.Commands.Quote.GetquoteCommand;
 import net.ddns.jonasvansaet.Commands.Quote.InsertquoteCommand;
+import net.ddns.jonasvansaet.DA.DAReminder;
+import net.ddns.jonasvansaet.Objects.Reminders;
 import net.ddns.jonasvansaet.utils.*;
-import net.dv8tion.jda.core.AccountType;
-import net.dv8tion.jda.core.JDA;
-import net.dv8tion.jda.core.JDABuilder;
-import net.dv8tion.jda.core.entities.Game;
+import net.dv8tion.jda.api.JDA;
+
+import net.dv8tion.jda.api.JDABuilder;
+import net.dv8tion.jda.api.entities.*;
 
 import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Random;
+
 
 public class Main {
 
@@ -29,19 +34,29 @@ public class Main {
         Logger.logLine("Bot booted");
         try
         {
-            jda = new JDABuilder(AccountType.BOT)
-                    .setToken(Config.botToken)
-                    .addEventListener(new CommandListener())
-                    .addEventListener(new JoinListener())
-                    .setGame(Game.playing("\"@mention help\" for help"))
-                    .buildBlocking();
+            JDABuilder builder = JDABuilder.createDefault(Config.botToken);
+            builder.addEventListeners(new CommandListener());
+            builder.addEventListeners(new JoinListener());
+            builder.setActivity(Activity.playing("\"@mention help\" for help"));
+            builder.setAutoReconnect(true);
+            jda = builder.build().awaitReady();
 
-            jda.setAutoReconnect(true);
+            /*jda = new JDABuilder(AccountType.BOT)
+                    .setToken(Config.devBotToken)
+                    .addEventListeners(new CommandListener())
+                    .addEventListeners(new JoinListener())
+                    //.setActivity(Activity.playing("\"@mention help\" for help"))
+                    .build().awaitReady();
+            jda.setAutoReconnect(true);*/
+            Logger.logLine("bot built");
         }
         catch (Exception e)
         {
+            Logger.logLine(e.getMessage());
             e.printStackTrace();
         }
+
+        Logger.logLine("adding commands");
 
 
         //add all the commands
@@ -84,6 +99,41 @@ public class Main {
         IgnoredPeople.loadIgnoredPeople();
 
         Logger.logLine("welcomeServers updated");
+
+        Logger.logLine("getting reminders");
+
+        DAReminder daReminder = new DAReminder();
+        ArrayList<Reminders> reminders = daReminder.getReminders();
+
+        for (Reminders reminder: reminders) {
+            if(LocalDateTime.now().isAfter(reminder.getTime().toLocalDateTime()) || LocalDateTime.now().isEqual(reminder.getTime().toLocalDateTime())) {
+                MessageChannel channel = jda.getTextChannelById(reminder.getChannelId());
+
+                User user = jda.retrieveUserById(reminder.getUserId()).complete();
+                channel.sendMessage(user.getAsMention() + " " + reminder.getReminder()).queue();
+                daReminder.removeReminder(reminder.getId());
+            }
+            else {
+                long diff = ChronoUnit.NANOS.between(LocalDateTime.now(), reminder.getTime().toLocalDateTime());
+
+                new java.util.Timer().schedule(
+                        new java.util.TimerTask() {
+                            @Override
+                            public void run() {
+                                MessageChannel channel = jda.getTextChannelById(reminder.getChannelId());
+                                channel.sendMessage(((TextChannel) channel).getGuild().getMemberById(reminder.getUserId()).getAsMention() + " " + reminder.getReminder()).queue();
+
+                                DAReminder reminderAL = new DAReminder();
+                                reminderAL.removeReminder(reminder.getId());
+                            }
+                        },
+                        diff
+                );
+
+            }
+        }
+
+        Logger.logLine("reminders set and registered");
 
     }
 

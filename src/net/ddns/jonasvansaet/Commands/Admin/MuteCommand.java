@@ -2,10 +2,11 @@ package net.ddns.jonasvansaet.Commands.Admin;
 
 import net.ddns.jonasvansaet.Command;
 import net.ddns.jonasvansaet.utils.ParameterParser;
-import net.dv8tion.jda.core.Permission;
-import net.dv8tion.jda.core.entities.*;
-import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
-
+import net.dv8tion.jda.api.Permission;
+import net.dv8tion.jda.api.entities.Role;
+import net.dv8tion.jda.api.entities.TextChannel;
+import net.dv8tion.jda.api.entities.User;
+import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 
 import java.util.List;
 import java.util.Timer;
@@ -37,7 +38,7 @@ public class MuteCommand implements Command {
 
                 List<TextChannel> channels = event.getGuild().getTextChannels();
 
-                event.getGuild().getController().createRole().queue((Role role) -> {
+                event.getGuild().createRole().queue((Role role) -> {
                     role.getManager().revokePermissions(Permission.values()).queue();
                     role.getManager().setName("QTBotMute").queue();
 
@@ -54,7 +55,7 @@ public class MuteCommand implements Command {
 
                             int timeToBan = Integer.parseInt(parameters[1]);
                             event.getChannel().sendMessage("muting " + user.getName() + " for " + timeToBan + " minutes").queue();
-                            event.getGuild().getController().addRolesToMember(event.getGuild().getMember(user), roles.get(0)).queue();
+                            event.getGuild().addRoleToMember(event.getGuild().getMember(user), roles.get(0)).queue();
                             Role banRole = roles.get(0);
 
                             timer.schedule(new TimerTask() {
@@ -63,7 +64,7 @@ public class MuteCommand implements Command {
 
                                     if (event.getGuild().getMember(user).getRoles().contains(event.getGuild().getRolesByName("QTBotMute", true).get(0))){
                                         event.getChannel().sendMessage("Unmuting " + user.getAsMention()).queue();
-                                        event.getGuild().getController().removeRolesFromMember(event.getGuild().getMember(user), banRole).queue();
+                                        event.getGuild().removeRoleFromMember(event.getGuild().getMember(user), banRole).queue();
                                     }
                                 }
                             }, timeToBan * 60 * 1000);
@@ -75,7 +76,7 @@ public class MuteCommand implements Command {
 
                     } else {
                         event.getChannel().sendMessage("muting " + user.getName() + " until unmuted").queue();
-                        event.getGuild().getController().addRolesToMember(event.getGuild().getMember(user), roles.get(0)).queue();
+                        event.getGuild().addRoleToMember(event.getGuild().getMember(user), roles.get(0)).queue();
                     }
 
                 }

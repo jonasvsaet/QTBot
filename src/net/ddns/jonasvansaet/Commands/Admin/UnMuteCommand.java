@@ -1,10 +1,9 @@
 package net.ddns.jonasvansaet.Commands.Admin;
 
 import net.ddns.jonasvansaet.Command;
-import net.dv8tion.jda.core.Permission;
-import net.dv8tion.jda.core.entities.Role;
-import net.dv8tion.jda.core.entities.User;
-import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
+import net.dv8tion.jda.api.Permission;
+import net.dv8tion.jda.api.entities.User;
+import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 
 import java.util.List;
 
@@ -25,7 +24,7 @@ public class UnMuteCommand implements Command {
 
             for (User user: users){
                 if(event.getGuild().getMember(user).getRoles().contains(event.getGuild().getRolesByName("QTBotMute", true).get(0))){
-                    event.getGuild().getController().removeRolesFromMember(event.getGuild().getMember(user), event.getGuild().getRolesByName("QTBotMute", true).get(0)).queue();
+                    event.getGuild().removeRoleFromMember(event.getGuild().getMember(user), event.getGuild().getRolesByName("QTBotMute", true).get(0)).queue();
                     event.getChannel().sendMessage(user.getAsMention() + " unmuted").queue();
                 }
             }

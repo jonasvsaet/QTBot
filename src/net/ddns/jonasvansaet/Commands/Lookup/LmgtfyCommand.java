@@ -2,7 +2,7 @@ package net.ddns.jonasvansaet.Commands.Lookup;
 
 import net.ddns.jonasvansaet.Command;
 import net.ddns.jonasvansaet.utils.ParameterParser;
-import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
+import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 
 /**
  * Created by jonas on 12/20/2016.

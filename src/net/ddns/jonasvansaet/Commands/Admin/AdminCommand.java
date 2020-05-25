@@ -4,16 +4,14 @@ import net.ddns.jonasvansaet.Command;
 import net.ddns.jonasvansaet.Main;
 import net.ddns.jonasvansaet.utils.Config;
 import net.ddns.jonasvansaet.utils.ParameterParser;
-import net.ddns.jonasvansaet.utils.ReadUrl;
-import net.dv8tion.jda.core.Permission;
-import net.dv8tion.jda.core.entities.*;
-import net.dv8tion.jda.core.events.guild.member.GuildMemberLeaveEvent;
-import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
-import net.dv8tion.jda.core.requests.Route;
+import net.dv8tion.jda.api.Permission;
+import net.dv8tion.jda.api.entities.*;
+import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 
 import java.io.File;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Random;
 
 import static net.ddns.jonasvansaet.utils.ParameterParser.parseParameters;
 
@@ -76,31 +74,7 @@ public class AdminCommand implements Command {
                     break;
 
                 case "setgame":
-                    event.getJDA().getPresence().setGame(Game.playing(parameterParser.unparsedParameter(event).replace("setgame", "")));
-                    break;
-
-                case "mute":
-                    users = event.getMessage().getMentionedUsers();
-                    roles = event.getGuild().getRolesByName("QTBotMute", true);
-
-                    for (User user: users){
-                        event.getGuild().getController().addRolesToMember(event.getGuild().getMember(user), roles.get(0)).queue();
-                        event.getChannel().sendMessage("User " + user.getAsMention() + " Muted").queue();
-                    }
-
-                    break;
-
-                case "unmute":
-                    users = event.getMessage().getMentionedUsers();
-                    roles = event.getGuild().getRolesByName("QTBotMute", true);
-
-                    for (User user: users){
-
-                        if (event.getGuild().getMember(user).getRoles().contains(roles.get(0))){
-                            event.getGuild().getController().removeRolesFromMember(event.getGuild().getMember(user), roles.get(0)).queue();
-                            event.getChannel().sendMessage("User " + user.getAsMention() + " unMuted").queue();
-                        }
-                    }
+                    event.getJDA().getPresence().setActivity(Activity.playing(parameterParser.unparsedParameter(event).replace("setgame", "")));
                     break;
 
                 case "createMuteRole":
@@ -108,7 +82,7 @@ public class AdminCommand implements Command {
 
                     List<TextChannel> channels = event.getGuild().getTextChannels();
 
-                    event.getGuild().getController().createRole().queue((Role role) -> {
+                    event.getGuild().createRole().queue((Role role) -> {
                         role.getManager().revokePermissions(Permission.values()).queue();
                         role.getManager().setName("QTBotMute").queue();
 
@@ -120,53 +94,15 @@ public class AdminCommand implements Command {
                     event.getChannel().sendMessage("Mute role created").queue();
                     break;
 
-                case "kick":
-                    users = event.getMessage().getMentionedUsers();
-
-                    for (User eachUser: users){
-                        event.getGuild().getController().kick(eachUser.getId()).queue();
-                    }
-                    break;
-
-                case "sudo":
-                    Member member = event.getGuild().getMember(event.getAuthor());
-
-                    if(event.getGuild().getRolesByName("Sudo", true).size() <= 0){
-                        event.getGuild().getController().createRole().queue(role -> {
-                            role.getManager().setName("Sudo").queue();
-                        });
-                    } else {
-                        Role role = event.getGuild().getRolesByName("Sudo", true).get(0);
-                        role.getManager().givePermissions(Permission.ADMINISTRATOR).queue();
-                        event.getGuild().getController().addRolesToMember(member, event.getGuild().getRolesByName("Sudo", true)).queue();
-                    }
-
+                case "randomping":
+                    Random random = new Random();
+                    Member randomMember = event.getGuild().getMembers().get(random.nextInt(event.getGuild().getMembers().size()));
+                    event.getChannel().sendMessage(randomMember.getAsMention()).queue();
                     break;
                 default:
                     event.getChannel().sendMessage("Wrong usage, use listservers, getlog, countservers or setgame").queue();
                     break;
 
-                case "changeorder":
-                    event.getGuild().getRolesByName("sudo", true).get(0).getManager();
-                    break;
-
-                case "voicemute":
-                    users = event.getMessage().getMentionedUsers();
-
-                    for(User eachuser: users){
-                        event.getGuild().getController().setMute(event.getGuild().getMember(eachuser), true).queue();
-                    }
-                    event.getChannel().sendMessage("Muted").queue();
-                    break;
-
-                case "voiceunmute":
-                    users = event.getMessage().getMentionedUsers();
-
-                    for(User eachuser: users){
-                        event.getGuild().getController().setMute(event.getGuild().getMember(eachuser), false).queue();
-                    }
-                    event.getChannel().sendMessage("unMuted").queue();
-                    break;
             }
         } else {
             event.getChannel().sendMessage("You need to be the bot owner to use this command.").queue();

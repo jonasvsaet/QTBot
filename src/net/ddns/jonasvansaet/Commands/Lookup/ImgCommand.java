@@ -10,7 +10,7 @@ import net.ddns.jonasvansaet.Command;
 import net.ddns.jonasvansaet.utils.Config;
 import net.ddns.jonasvansaet.utils.ParameterParser;
 import net.ddns.jonasvansaet.utils.ReadUrl;
-import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
+import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import org.json.JSONArray;
 import org.json.JSONObject;
 

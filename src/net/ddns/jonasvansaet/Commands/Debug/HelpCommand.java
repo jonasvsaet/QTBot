@@ -2,9 +2,9 @@ package net.ddns.jonasvansaet.Commands.Debug;
 
 import com.sun.xml.internal.bind.v2.util.QNameMap;
 import net.ddns.jonasvansaet.Command;
-import net.dv8tion.jda.core.EmbedBuilder;
-import net.dv8tion.jda.core.entities.MessageEmbed;
-import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
+import net.dv8tion.jda.api.EmbedBuilder;
+import net.dv8tion.jda.api.entities.MessageEmbed;
+import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 
 import java.awt.*;
 import java.util.HashMap;
@@ -50,6 +50,7 @@ public class HelpCommand implements Command{
         embedBuilder.setColor(Color.green);
         //embedBuilder.addField("Commands", commandHelpString, false);
         embedBuilder.addField("Add quotebot to your server", "https://goo.gl/7tBuiQ", false);
+        embedBuilder.addField("Suggestions and GDPR requests","https://goo.gl/forms/DAG9Wgf89MKmk3RX2", false );
         embedBuilder.addField("Additional help","https://discord.gg/ZZp86F6", false );
         MessageEmbed messageEmbed = embedBuilder.build();
 

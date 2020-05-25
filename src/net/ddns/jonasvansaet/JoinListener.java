@@ -1,19 +1,12 @@
 package net.ddns.jonasvansaet;
 
-import net.ddns.jonasvansaet.DA.DAServersettings;
 import net.ddns.jonasvansaet.Objects.ByeSettings;
 import net.ddns.jonasvansaet.Objects.Serversettings;
 import net.ddns.jonasvansaet.utils.ByeServers;
 import net.ddns.jonasvansaet.utils.WelcomeServers;
-import net.dv8tion.jda.core.entities.TextChannel;
-import net.dv8tion.jda.core.events.guild.GuildJoinEvent;
-import net.dv8tion.jda.core.events.guild.member.GuildMemberJoinEvent;
-import net.dv8tion.jda.core.events.guild.member.GuildMemberLeaveEvent;
-import net.dv8tion.jda.core.hooks.ListenerAdapter;
-
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
+import net.dv8tion.jda.api.events.guild.member.GuildMemberJoinEvent;
+import net.dv8tion.jda.api.events.guild.member.GuildMemberLeaveEvent;
+import net.dv8tion.jda.api.hooks.ListenerAdapter;
 
 
 /**

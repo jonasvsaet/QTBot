@@ -8,19 +8,26 @@
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" name="com.google.guava:guava:23.6-jre" level="project" />
-    <orderEntry type="library" name="com.google.api-client:google-api-client:1.23.0" level="project" />
-    <orderEntry type="library" name="com.google.apis:google-api-services-youtube:v3-rev190-1.23.0" level="project" />
     <orderEntry type="library" name="org.apache.commons:commons-lang3:3.7" level="project" />
-    <orderEntry type="library" name="com.google.apis:google-api-services-customsearch:v1-rev59-1.23.0" level="project" />
-    <orderEntry type="module-library">
-      <library>
-        <CLASSES>
-          <root url="jar://D:/Downloads/JDA-3.8.0_423-withDependencies.jar!/" />
-        </CLASSES>
-        <JAVADOC />
-        <SOURCES />
-      </library>
-    </orderEntry>
-    <orderEntry type="library" name="postgresql:postgresql:9.1-902.jdbc4" level="project" />
+    <orderEntry type="library" name="JDA-4.1.1_155" level="project" />
+    <orderEntry type="library" name="annotations-16.0.1" level="project" />
+    <orderEntry type="library" name="trove4j-3.0.3" level="project" />
+    <orderEntry type="library" name="org.json:json:20190722" level="project" />
+    <orderEntry type="library" name="com.atlassian.asap:asap-client-okhttp3:2.25.0" level="project" />
+    <orderEntry type="library" name="commons-collections4-4.1" level="project" />
+    <orderEntry type="library" name="jackson-annotations-2.10.1" level="project" />
+    <orderEntry type="library" name="jackson-core-2.10.1" level="project" />
+    <orderEntry type="library" name="jackson-databind-2.10.1" level="project" />
+    <orderEntry type="library" name="jna-4.4.0" level="project" />
+    <orderEntry type="library" name="nv-websocket-client-2.9" level="project" />
+    <orderEntry type="library" name="okhttp-3.13.0" level="project" />
+    <orderEntry type="library" name="okio-1.17.2" level="project" />
+    <orderEntry type="library" name="opus-java-api-1.0.4" level="project" />
+    <orderEntry type="library" name="opus-java-natives-1.0.4" level="project" />
+    <orderEntry type="library" name="slf4j-api-1.7.25" level="project" />
+    <orderEntry type="library" name="com.google.api-client:google-api-client:1.30.9" level="project" />
+    <orderEntry type="library" name="com.google.apis:google-api-services-customsearch:v1-rev20200504-1.30.9" level="project" />
+    <orderEntry type="library" name="com.google.apis:google-api-services-youtube:v3-rev20200423-1.30.9" level="project" />
+    <orderEntry type="library" name="org.postgresql:postgresql:42.2.12" level="project" />
   </component>
 </module>
